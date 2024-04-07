@@ -38,18 +38,14 @@ export const LoginForm = () => {
     startTransition(() => {
       Login(values)
         .then((data) => {
-          if (data) {
+          if (data?.error) {
             setError(data.error);
-            setSuccess(undefined);
-          } else {
-            setError("An error occurred");
-            setSuccess(undefined);
+          }
+          if (data?.success) {
+            setSuccess(data.success);
           }
         })
-        .catch((error) => {
-          setError("An error occurred while logging in");
-          console.error(error);
-        });
+        .catch(() => setError("Something went wrong!"));
     });
   };
   return (
